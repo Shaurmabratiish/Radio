@@ -7,7 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import noobsdev.radio.blocks.player.PlayerData;
+import noobsdev.radio.blocks.ModBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +41,8 @@ public class RadioBlockEntity  extends BlockEntity {
             // Здесь вы можете делать что-то с игроками
             for (PlayerEntity player : playersInRadius) {
                 player.sendMessage(Text.of("Вы находитесь рядом с радио!"), false);
-                PlayerData data = (PlayerData) player;
-
-                data.resetStatus();
-
-                data.setRadioStatus(player, true);
+                resetStatus();
+                setRadioStatus(player, true);
 
             }
         }
@@ -62,6 +59,23 @@ public class RadioBlockEntity  extends BlockEntity {
 
         return playersInRadius;
     }
+
+    private static void setRadioStatus(PlayerEntity player, boolean status) {
+        ModBlocks.playerRadioStatus.put(player, status);
+    }
+
+    private static boolean getRadioStatus(PlayerEntity player) {
+        return ModBlocks.playerRadioStatus.getOrDefault(player, false);
+    }
+
+    private static void resetStatus() {
+        ModBlocks.playerRadioStatus.clear();
+    }
+
+    private static void removePlayer(PlayerEntity player) {
+        ModBlocks.playerRadioStatus.remove(player);
+    }
+
 
     @Override
     public void readNbt(NbtCompound nbt) {

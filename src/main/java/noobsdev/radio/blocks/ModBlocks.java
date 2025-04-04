@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -13,7 +14,11 @@ import net.minecraft.util.Identifier;
 import noobsdev.radio.Radio;
 import noobsdev.radio.blocks.custom.RadioBlock;
 
+import java.util.HashMap;
+
 public class ModBlocks {
+
+    public static final HashMap<PlayerEntity, Boolean> playerRadioStatus = new HashMap<>();
 
     public static final Block RADIO_BLOCK = registerBlock("radio_block",
             new RadioBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.SOUL_SAND)));

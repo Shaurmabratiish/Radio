@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import noobsdev.radio.blocks.custom.entity.ModBlocksEntity;
 import noobsdev.radio.blocks.custom.entity.RadioBlockEntity;
-import noobsdev.radio.blocks.player.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
 public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
