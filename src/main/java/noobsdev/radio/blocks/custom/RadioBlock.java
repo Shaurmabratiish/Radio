@@ -6,7 +6,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import noobsdev.radio.blocks.custom.entity.ModBlocksEntity;
@@ -25,6 +29,28 @@ public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return null;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+
+        if(!world.isClient) {
+            BlockEntity entity = world.getBlockEntity(pos);
+
+            if(entity instanceof RadioBlockEntity radioBlockEntity) {
+                if(player.isSneaking()) {
+                    radioBlockEntity.setFrequency(radioBlockEntity.getFrequency() - 1);
+                }else {
+                    radioBlockEntity.setFrequency(radioBlockEntity.getFrequency() + 1);
+                }
+
+                world.updateListeners(pos, state, state, 3);
+
+                radioBlockEntity.markDirty();
+            }
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     @Override
