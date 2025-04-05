@@ -17,7 +17,7 @@ import java.util.List;
 public class RadioBlockEntity  extends BlockEntity {
 
     private String author;
-    private float frequency;
+    private int frequency;
 
     public RadioBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocksEntity.RADIO_BLOCK_ENTITY_BLOCK_ENTITY_TYPE, pos, state);
@@ -27,10 +27,10 @@ public class RadioBlockEntity  extends BlockEntity {
         this.author = author;
     }
 
-    public void setFrequency(float freq) {
+    public void setFrequency(int freq) {
         this.frequency = freq;
     }
-    public float getFrequency () {
+    public int getFrequency () {
         return frequency;
     }
 
@@ -43,7 +43,7 @@ public class RadioBlockEntity  extends BlockEntity {
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putString("Author", author);
-        nbt.putFloat("Frequency", frequency);
+        nbt.putInt("Frequency", frequency);
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -57,9 +57,9 @@ public class RadioBlockEntity  extends BlockEntity {
 
                 if (entity instanceof RadioBlockEntity radioBlockEntity) {
 
+                    int n = radioBlockEntity.getFrequency();
 
-
-                    player.sendMessage(Text.of(" §fУказанная частота: §b" + radioBlockEntity.frequency + "§f."), true);
+                    player.sendMessage(Text.of(" §fУказанная частота: §b" + n + "§f."), true);
                     resetStatus();
                     setRadioStatus(player, true);
 
@@ -102,6 +102,6 @@ public class RadioBlockEntity  extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.author = nbt.getString("Author");
-        this.frequency = nbt.getFloat("Frequency");
+        this.frequency = nbt.getInt("Frequency");
     }
 }

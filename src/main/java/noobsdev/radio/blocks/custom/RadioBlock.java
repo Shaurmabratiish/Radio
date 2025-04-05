@@ -17,7 +17,6 @@ import java.util.Random;
 
 public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
 
-    public static Random random = new Random();
 
     public RadioBlock(Settings settings) {
         super(settings);
@@ -41,11 +40,10 @@ public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
                 blockEntity.setAuthor(placer.getName().getString());
                 blockEntity.markDirty();
 
-                float number = random.nextFloat() * 99;
-                String formatted = String.format("%.1f", number);
+                Random random = new Random();
 
-                number = Float.valueOf(formatted);
-
+                // Генерация случайного числа от 1 до 999
+                int number = random.nextInt(999) + 1;
 
                 blockEntity.setFrequency(number);// Убедитесь, что блок обновляется
             }
