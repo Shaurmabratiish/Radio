@@ -12,12 +12,16 @@ import noobsdev.radio.blocks.custom.entity.RadioBlockEntity;
 public class RadioBlockRender implements BlockEntityRenderer<RadioBlockEntity> {
     @Override
     public void render(RadioBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        String render = String.valueOf(entity.getFrequency());
+        String render = "§a" + String.valueOf(entity.getFrequency());
 
         matrices.push();
-        matrices.translate(entity.getPos().getX(), entity.getPos().getY() + 0.5, entity.getPos().getZ());
-        matrices.scale(0.25f, 0.25f, 0.25f); // Уменьшаем текст в 2 раза по осям X и Y
-        matrices.scale(-1.0f, -1.0f, -1.0f);; // Поворот текста для правильного отображения
+        matrices.translate(0.5, 0.65, -0.05);
+
+        // Уменьшаем текст, чтобы он соответствовал размеру блока
+        matrices.scale(0.85f / 16.0f, 0.85f / 16.0f, 0.85f); // Масштабируем текст до размера блока
+
+        // Поворот текста для правильного отображения
+        matrices.scale(-1.0f, -1.0f, -1.0f);  // Поворот текста для правильного отображения
 
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
@@ -27,7 +31,7 @@ public class RadioBlockRender implements BlockEntityRenderer<RadioBlockEntity> {
                 -textRenderer.getWidth(render) / 2.0f,
                 0,
                 0xFFFFFF,
-                false,
+                true,
                 matrices.peek().getPositionMatrix(), // Используем текущую матрицу
                 vertexConsumers,
                 TextRenderer.TextLayerType.NORMAL,
