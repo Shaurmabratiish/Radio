@@ -13,7 +13,12 @@ import noobsdev.radio.blocks.custom.entity.ModBlocksEntity;
 import noobsdev.radio.blocks.custom.entity.RadioBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
+
+    public static Random random = new Random();
+
     public RadioBlock(Settings settings) {
         super(settings);
     }
@@ -29,7 +34,15 @@ public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
             RadioBlockEntity blockEntity = (RadioBlockEntity) world.getBlockEntity(pos);
             if (blockEntity != null) {
                 blockEntity.setAuthor(placer.getName().getString());
-                blockEntity.markDirty(); // Убедитесь, что блок обновляется
+                blockEntity.markDirty();
+
+                float number = random.nextFloat() * 99;
+                String formatted = String.format("%.1f", number);
+
+                number = Float.valueOf(formatted);
+
+
+                blockEntity.setFrequency(number);// Убедитесь, что блок обновляется
             }
         }
     }

@@ -2,8 +2,10 @@ package noobsdev.radio.blocks.custom.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,6 +17,7 @@ import java.util.List;
 public class RadioBlockEntity  extends BlockEntity {
 
     private String author;
+    private float frequency;
 
     public RadioBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocksEntity.RADIO_BLOCK_ENTITY_BLOCK_ENTITY_TYPE, pos, state);
@@ -24,6 +27,14 @@ public class RadioBlockEntity  extends BlockEntity {
         this.author = author;
     }
 
+    public void setFrequency(float freq) {
+        this.frequency = freq;
+    }
+    public float getFrequency () {
+        return frequency;
+    }
+
+
     public String getAuthor() {
         return author;
     }
@@ -32,6 +43,7 @@ public class RadioBlockEntity  extends BlockEntity {
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putString("Author", author);
+        nbt.putFloat("Frequency", frequency);
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -40,9 +52,18 @@ public class RadioBlockEntity  extends BlockEntity {
             List<PlayerEntity> playersInRadius = getPlayersInRadius(world, getPos(), 5.0);
             // Здесь вы можете делать что-то с игроками
             for (PlayerEntity player : playersInRadius) {
-                player.sendMessage(Text.of("Вы находитесь рядом с радио!"), false);
-                resetStatus();
-                setRadioStatus(player, true);
+
+                BlockEntity entity = world.getBlockEntity(pos);
+
+                if (entity instanceof RadioBlockEntity radioBlockEntity) {
+
+
+
+                    player.sendMessage(Text.of(" §fУказанная частота: §b" + radioBlockEntity.frequency + "§f."), true);
+                    resetStatus();
+                    setRadioStatus(player, true);
+
+                }
 
             }
         }
@@ -81,5 +102,6 @@ public class RadioBlockEntity  extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.author = nbt.getString("Author");
+        this.frequency = nbt.getFloat("Frequency");
     }
 }
