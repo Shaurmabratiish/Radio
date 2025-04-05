@@ -15,6 +15,9 @@
     ],
     "main": [
       "noobsdev.radio.Radio"
+    ],
+    "fabric-datagen": [
+      "noobsdev.radio.RadioDataGenerator"
     ]
   },
   "mixins": [

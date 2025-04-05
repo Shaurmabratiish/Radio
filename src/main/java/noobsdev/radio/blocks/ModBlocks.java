@@ -20,6 +20,10 @@ public class ModBlocks {
 
     public static final HashMap<PlayerEntity, Boolean> playerRadioStatus = new HashMap<>();
 
+    // НЕ ЗАБЫВАЙ ПРО РЕНДЕР, ЧТОБ ТЕКСТУРЫ РАБОТАЛИ!!!
+    // НЕ ЗАБЫВАЙ ПРО РЕНДЕР, ЧТОБ ТЕКСТУРЫ РАБОТАЛИ!!!
+    // НЕ ЗАБЫВАЙ ПРО РЕНДЕР, ЧТОБ ТЕКСТУРЫ РАБОТАЛИ!!!
+    // НЕ ЗАБЫВАЙ ПРО РЕНДЕР, ЧТОБ ТЕКСТУРЫ РАБОТАЛИ!!!
     public static final Block RADIO_BLOCK = registerBlock("radio_block",
             new RadioBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.SOUL_SAND)));
 

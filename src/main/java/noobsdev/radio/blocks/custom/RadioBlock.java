@@ -29,6 +29,11 @@ public class RadioBlock extends BlockWithEntity implements BlockEntityProvider {
     }
 
     @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if (!world.isClient) {
             RadioBlockEntity blockEntity = (RadioBlockEntity) world.getBlockEntity(pos);
